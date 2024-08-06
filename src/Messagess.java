@@ -22,24 +22,24 @@ public class Messagess {
         try{
             con=DriverManager.getConnection(url,usename,password);
             st= con.createStatement();
-            String sql="SELECT COUNT(*) FROM Username;";
+            String sql="SELECT COUNT(*) FROM username;";
             ResultSet rs=st.executeQuery(sql);
             rs.next();
             String output =rs.getString(1);
             count=Integer.parseInt(output);
             if(rs!=null) rs.close();
-            sql=String.format("SELECT COUNT(*) FROM Username WHERE userr = '%s' and users = '%s' LIMIT 20;",userr,users);
+            sql=String.format("SELECT COUNT(*) FROM username WHERE userr = '%s' and users = '%s' LIMIT 20;",userr,users);
             rs=st.executeQuery(sql);
             rs.next();
             output =rs.getString(1);
             count1=Integer.parseInt(output);
             if(rs!=null) rs.close();
-            sql=String.format("SELECT Message FROM Username WHERE userr = '%s' and users = '%s' ORDER BY ID DESC LIMIT 20;",userr,users);
+            sql=String.format("SELECT Message FROM username WHERE userr = '%s' and users = '%s' ORDER BY ID DESC LIMIT 20;",userr,users);
             rs=st.executeQuery(sql);
             String te;
             while(rs.next()){
                 count1--;
-                te=rs.getString("Message");
+                te=rs.getString("message");
                 msgs.set(count1,te);
             }
             if(rs!=null) rs.close();
@@ -52,7 +52,7 @@ public class Messagess {
         try{
             count++;
             temp1=String.valueOf(count);
-            String sql=String.format("INSERT INTO Username (ID,Userr,Users,Message) VALUES('%s','%s','%s','%s');",temp1,userr,users,msges);
+            String sql=String.format("INSERT INTO username (id,userr,users,message) VALUES('%s','%s','%s','%s');",temp1,userr,users,msges);
             st.executeUpdate(sql);
         }
         catch(Exception e){

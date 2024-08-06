@@ -8,46 +8,46 @@ import java.util.*;
 
 public class Form implements ActionListener{
     
-    JFrame Frame= new JFrame();
+    private JFrame Frame= new JFrame();
     // Container c;
-    JLabel l=new JLabel();
-    JTextField msg=new JTextField();
-    JLabel Label_Button= new JLabel();
-    JButton send= new JButton();
-    JButton enter=new JButton();
-    JButton back=new JButton();
-    JButton back1=new JButton();
-    int cn=25,i=0;
-    JPanel Panel=new JPanel();
-	JPanel Panel1=new JPanel();
-	JPanel Panel2=new JPanel();
-    JPanel Panel3=new JPanel();
-    JPanel Panel4=new JPanel();
-    JPanel Panel5=new JPanel();
-    JPanel Panel6=new JPanel();
-    JPanel Panel7=new JPanel();
-    JPanel Panel8=new JPanel();
-    public ArrayList<JButton> usera=new ArrayList<>();
-    JScrollPane scrollPane = new JScrollPane();
-    JScrollPane scrollPane1;
-    JTextArea area=new JTextArea();
-    JLabel user=new JLabel();
-    JLabel user1=new JLabel();
-    JButton Group1=new JButton();
-    JButton newuser=new JButton();
-    public String userrecieve=new String();
-    public int bflag=0;
-    public int k,temp;
+    private JLabel l=new JLabel();
+    private JTextField msg=new JTextField();
+    private JLabel Label_Button= new JLabel();
+    private JButton send= new JButton();
+    private JButton enter=new JButton();
+    private JButton back=new JButton();
+    private JButton back1=new JButton();
+    private int cn=25,i=0;
+    private JPanel Panel=new JPanel();
+	private JPanel Panel1=new JPanel();
+	private JPanel Panel2=new JPanel();
+    private JPanel Panel3=new JPanel();
+    private JPanel Panel4=new JPanel();
+    private JPanel Panel5=new JPanel();
+    private JPanel Panel6=new JPanel();
+    private JPanel Panel7=new JPanel();
+    private JPanel Panel8=new JPanel();
+    // public ArrayList<JButton> usera=new ArrayList<>();
+    private JScrollPane scrollPane = new JScrollPane();
+    private JScrollPane scrollPane1;
+    private JTextArea area=new JTextArea();
+    private JLabel user=new JLabel();
+    private JLabel user1=new JLabel();
+    private JButton Group1=new JButton();
+    private JButton newuser=new JButton();
+    private String userrecieve=new String();
+    private int bflag=0;
+    private int k,temp;
     private JButton[] usern=new JButton[40];
-    public int iter=0;
-    JButton ENTER = new JButton();
-    JDialog popup;
-    JTextField input=new JTextField();
+    private int iter=0;
+    private JButton ENTER = new JButton();
+    private JDialog popup;
+    private JTextField input=new JTextField();
 
-    public static ArrayList<Messagec> messagec=new ArrayList<>();
+    private ArrayList<Messagec> messagec=new ArrayList<>();
 
-    CardLayout cardLayout=new CardLayout();
-    public JPanel mainPanel;
+    private CardLayout cardLayout=new CardLayout();
+    private JPanel mainPanel;
 
     private Socket socket;
     private DataInputStream bufferedReader;
@@ -116,7 +116,7 @@ public class Form implements ActionListener{
                             in.msginput(msgFromGroupChat);
                         }
                         try {
-                            Thread.sleep(1000); 
+                            Thread.sleep(500); 
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         } 
@@ -147,10 +147,17 @@ public class Form implements ActionListener{
     public void actionPerformed(ActionEvent a){
         if(a.getSource()==send){
             try {
-                input.setText("");
                 if(socket.isConnected()){
                     String messageToSend = msg.getText();
-                    area.append("You: "+messageToSend+"\n");
+                    msg.setText("");
+                    // area.append("You: "+messageToSend+"\n");
+                    for(Messagec it:messagec){
+                        if((it.userr).equals(userrecieve)){
+                            it.msginput("You: "+messageToSend);
+                        }
+                    }
+                    bflag=1;
+                    changearea(userrecieve, 1);
                     bufferedWriter.writeUTF(userrecieve);
                     bufferedWriter.flush();
                     bufferedWriter.writeUTF(messageToSend);
@@ -164,6 +171,7 @@ public class Form implements ActionListener{
         for(temp=0;temp<=iter;temp++){
             if(a.getSource()==usern[temp]){
                 area.setText("");
+                msg.setText("");
                 user.setText(usern[temp].getText());
                 userrecieve=usern[temp].getText();
                 changearea(userrecieve,0);
@@ -213,7 +221,7 @@ public class Form implements ActionListener{
         bflag=0;
         int tempind=-1;
         for(int i=0;i<iter;i++){
-            if(usern[i].getText()==in1.userr) { 
+            if((usern[i].getText()).equals(in1.userr)) { 
                 Panel7.remove(usern[i]);
                 tempind=i;
                 break;
@@ -229,7 +237,6 @@ public class Form implements ActionListener{
             Panel7.revalidate();
             Panel7.repaint();
         }
-        bflag=1;
         }
         area.setText(""); 
         for(int k=0;k<20;k++){

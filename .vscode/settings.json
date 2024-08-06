@@ -1,8 +1,10 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src",
+        "Chat"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "/home/lakshman/Documents/Chat/lib/postgresql-42.7.3.jar"
+        "/home/lakshman/Documents/Friends_chat/Chat/lib/postgresql-42.7.3.jar"
     ]
 }

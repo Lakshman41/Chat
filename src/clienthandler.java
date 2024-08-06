@@ -5,12 +5,11 @@ import java.util.*;
 public class clienthandler implements Runnable {
     
     public static ArrayList<clienthandler> clientHandlers = new ArrayList<>();
-    public static ArrayList<Messagess> messages = new ArrayList<>();
+    public ArrayList<Messagess> messages = new ArrayList<>();
     private Socket socket;
     private DataInputStream bufferedReader;
     private DataOutputStream bufferedWriter;
     private String clientusername;
-    private String[] buttons=new String[9];
     Vector<String> v = new Vector<>();
 
     public clienthandler(Socket socket) {
@@ -21,6 +20,13 @@ public class clienthandler implements Runnable {
             this.clientusername = bufferedReader.readUTF();
             clientHandlers.add(this);
             // broadcastMessage("Server: "+clientusername+" has entered the game");
+            Backup backup=new Backup(this.clientusername);
+            int cn=backup.count();
+            for(int i=0;i<cn;i++){
+                backup.msgoutput(i);
+                Messagess obj=new Messagess(this.clientusername,backup.msgprint);
+                messages.add(obj);
+            }
             for(Messagess it:messages){
                 if(it.userr.equals(this.clientusername)){
                     broadcastMessage(it.users,it.userr);
@@ -54,7 +60,7 @@ public class clienthandler implements Runnable {
                     if(it.userr.equals(messageFromClient) && it.users.equals(clientusername)){
                         in=it;
                         flag=1;
-                        System.out.println(in.userr);
+                        // System.out.println(in.userr);
                         break;
                     }
                 }
@@ -62,7 +68,7 @@ public class clienthandler implements Runnable {
                     if(it.users.equals(messageFromClient) && it.userr.equals(clientusername)){
                         in1=it;
                         f=1;
-                        System.out.println(in1.userr);
+                        // System.out.println(in1.userr);
                         break;
                     }
                 }
