@@ -33,6 +33,7 @@ public class Messagess {
             rs.next();
             output =rs.getString(1);
             count1=Integer.parseInt(output);
+            if(count1>20) count1=20;
             if(rs!=null) rs.close();
             sql=String.format("SELECT Message FROM username WHERE userr = '%s' and users = '%s' ORDER BY ID DESC LIMIT 20;",userr,users);
             rs=st.executeQuery(sql);
@@ -58,9 +59,9 @@ public class Messagess {
         catch(Exception e){
             System.out.println(e);
         }
-        if(msgs.get(19)==" "){
+        if((msgs.get(19)).equals(" ")){
             for(int i=0;i<20;i++){
-                if(msgs.get(i)==" "){
+                if((msgs.get(i)).equals(" ")){
                     msgs.set(i,msges);
                     break;
                 }

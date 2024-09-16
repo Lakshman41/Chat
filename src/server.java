@@ -15,9 +15,6 @@ public class server {
                 Socket socket = serverSocket.accept();
                 System.out.println("A new client has connected");
                 clienthandler clientHandlers = new clienthandler(socket);
-
-                Thread thread =new Thread(clientHandlers);
-                thread.start();
             }
         }
         catch(IOException e){
@@ -34,6 +31,7 @@ public class server {
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) throws IOException{
 
         ServerSocket serverSocket = new ServerSocket(1234);

@@ -4,17 +4,16 @@ public class Messagec {
     public String userr,users,msgprint;
     // public String[] msgs=new String[20];
     private ArrayList<String> msgs=new ArrayList<>();
-    public Messagec(String userr,String users){
+    public Messagec(String userr){
         this.userr=userr;
-        this.users=users;
         for(int i=0;i<20;i++){
             msgs.add(" ");
         }
     }
     public void msginput(String msges){
-        if(msgs.get(19)==" "){
+        if((msgs.get(19)).equals(" ")){
             for(int i=0;i<20;i++){
-                if(msgs.get(i)==" "){
+                if((msgs.get(i)).equals(" ")){
                     msgs.set(i,msges);
                     break;
                 }
@@ -33,6 +32,9 @@ public class Messagec {
         } else {
             this.msgprint=null;
         }
+    }
+    public void indxinput(int ind,String s){
+        msgs.set(ind,s);
     }
     // public int len(){
     //     return msgs.size();

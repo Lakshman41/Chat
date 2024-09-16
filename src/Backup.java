@@ -18,7 +18,7 @@ public class Backup {
         try{
             con=DriverManager.getConnection(url,usename,password);
             st= con.createStatement();
-            String sql=String.format("SELECT DISTINCT users FROM username WHERE userr='%s';",this.username);
+            String sql=String.format("SELECT users FROM ( SELECT users, id FROM username WHERE userr = '%s' ORDER BY id DESC) subquery GROUP BY users;",this.username);
             ResultSet rs=st.executeQuery(sql);
             String te;
             while(rs.next()){
